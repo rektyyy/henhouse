@@ -1,2 +1,2 @@
 # henhouse
-Game pratform
+Game platform
