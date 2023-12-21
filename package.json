@@ -1,0 +1,23 @@
+{
+  "name": "henhouse",
+  "version": "1.0.0",
+  "description": "Game platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rektyyy/henhouse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rektyyy/henhouse/issues"
+  },
+  "homepage": "https://github.com/rektyyy/henhouse#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2"
+  }
+}
