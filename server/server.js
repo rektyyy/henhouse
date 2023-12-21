@@ -7,7 +7,9 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
-app.use(express.static(__dirname));
+const path = "/../client"
+
+app.use(express.static(__dirname + path));
 
 
 io.on('connection', (socket) => {
