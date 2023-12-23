@@ -13,8 +13,20 @@ app.use(express.static(__dirname + path));
 
 
 io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
+
+  socket.onAny((event, ...args) => {
+    console.log(event, args);
+  });
+
+  socket.on('join room', (roomId) => {
+    console.log(`Recieved event to join room ${roomId} from client ${socket.id}`)
+    socket.join(roomId);
+  })
+
+  socket.on('chat message', (data) => {
+    const senderSocketId = socket.id;
+    console.log(`Server sending message to room ${data.roomId}: ${data.message}`)
+    io.to(data.roomId).emit('chat message', data.message );
   });
 });
 
