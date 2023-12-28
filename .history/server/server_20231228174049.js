@@ -6,35 +6,37 @@ var app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+
+
 var server = http.createServer(app);
-var io = socket(server);
+var io = socket(server)
 
-let boardState = Array(9).fill('');
-let currentPlayer = 'X';
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
   res.render('index');
 });
-
 app.get('/game', (req, res) => {
   res.render('game', { boardState, winner: checkWinner() });
 });
 
+let boardState = Array(9).fill('');
+let currentPlayer = 'X';
+
 io.on('connection', (socket) => {
+
   socket.onAny((event, ...args) => {
     console.log(event, args);
   });
 
   socket.on('join room', (roomId) => {
-    console.log(`Received event to join room ${roomId} from client ${socket.id}`);
+    console.log(`Recieved event to join room ${roomId} from client ${socket.id}`)
     socket.join(roomId);
-  });
+  })
 
   socket.on('chat message', (data) => {
-    console.log(`Server sending message to room ${data.roomId}: ${data.message}`);
-    io.to(data.roomId).emit('chat message', data.message);
+    console.log(`Server sending message to room ${data.roomId}: ${data.message}`)
+    io.to(data.roomId).emit('chat message', data.message );
   });
-
   socket.emit('updateGame', { boardState, winner: checkWinner() });
 
   socket.on('move', ({ index }) => {
@@ -46,6 +48,7 @@ io.on('connection', (socket) => {
       console.log('Invalid move!');
     }
   });
+
 });
 
 function checkWinner() {
@@ -69,6 +72,8 @@ function checkWinner() {
   return null;
 }
 
+
 server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
 });
+
