@@ -1,6 +1,5 @@
 const express = require('express');
 const { createServer } = require('node:http');
-const { join } = require('node:path');
 const { Server } = require('socket.io');
 
 const app = express();
@@ -11,8 +10,6 @@ const path = "/../client"
 
 app.use(express.static(__dirname + path));
 
-let boardState = Array(9).fill('');
-let currentPlayer = 'X';
 
 io.on('connection', (socket) => {
 
@@ -22,30 +19,60 @@ io.on('connection', (socket) => {
 
   socket.on('join room', (roomId) => {
     console.log(`Recieved event to join room ${roomId} from client ${socket.id}`)
-    socket.join(roomId);
+    const clientsInRoom = io.sockets.adapter.rooms.get(roomId);
+    if (clientsInRoom === undefined) {
+      socket.join(roomId);
+      io.to(socket.id).emit('x');
+    }
+    else if (clientsInRoom.size == 1) {
+      socket.join(roomId);
+      io.to(socket.id).emit('o');
+    }
+    else {
+      io.to(socket.id).emit('full room', roomId);
+    }
   })
 
   socket.on('chat message', (data) => {
     console.log(`Server sending message to room ${data.roomId}: ${data.message}`)
-    io.to(data.roomId).emit('chat message', data.message );
+    io.to(data.roomId).emit('chat message', data.message);
   });
 
-  socket.emit('updateGame', { boardState, winner: checkWinner() });
-
-  socket.on('move', ({ index }) => {
-    if (!boardState[index]) {
-      boardState[index] = currentPlayer;
-      io.emit('updateGame', { boardState, winner: checkWinner() });
-
-      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    } else {
-      // Gracz próbuje oszukać, nie zmieniaj stanu planszy
-      console.log('Niezgodność ruchu z zasadami gry!');
+  socket.on('move', (data) => {
+    roomId = data.roomId;
+    boardState = data.boardState;
+    playerMark = data.playerMark;
+    index = data.index;
+    if (boardState[index] == '') {
+      boardState[index] = playerMark;
+      let winCheck = checkWinner(boardState);
+      if (winCheck == 'Draw') {
+        io.to(roomId).emit('draw', { boardState: boardState });
+      }
+      if (playerMark == 'X') {
+        if (winCheck == 'X') {
+          io.to(roomId).emit('winner', { boardState: boardState, winner: 'X' });
+        }
+        else {
+          io.to(roomId).emit('updateGame', { boardState: boardState, nextMove: 'O' });
+        }
+      }
+      else {
+        if (winCheck == 'O') {
+          io.to(roomId).emit('winner', { boardState: boardState, winner: 'O' });
+        }
+        else {
+          io.to(roomId).emit('updateGame', { boardState: boardState, nextMove: 'X' });
+        }
+      }
+    }
+    else {
+      io.to(socket.id).emit('wrong move');
     }
   });
 });
 
-function checkWinner() {
+function checkWinner(boardState) {
   const winningCombinations = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
     [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns

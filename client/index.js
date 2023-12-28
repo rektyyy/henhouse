@@ -1,7 +1,7 @@
 const input_room = document.getElementById('input_room');
 const button_room = document.getElementById('button_room');
 
-// Sends join room to server
+// Joins room
 button_room.addEventListener('click', () => {
     if (input_room.value) {
         currentRoomId = input_room.value;

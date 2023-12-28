@@ -7,14 +7,16 @@ const messages = document.getElementById('messages');
 const board = document.getElementById('board');
 const cells = document.querySelectorAll('.cell');
 
-let currentRoomId = '0';
-let currentPlayer = 'X';
+let playerMark = '';
+let boardState = Array(9).fill('');
 
 function getRoomId() {
     const params = new URLSearchParams(document.location.search);
     return params.get("room");
 }
-socket.emit('join room', getRoomId());
+let currentRoomId = getRoomId();
+socket.emit('join room', currentRoomId);
+
 
 // Sends message to server 
 form.addEventListener('submit', (e) => {
@@ -43,28 +45,84 @@ socket.on('chat message', (msg) => {
     const item = document.createElement('li');
     item.textContent = msg;
     messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
 });
 
-// Tic tac toe game loop
-cells.forEach(cell => {
-    cell.addEventListener('click', () => {
-        const index = cell.dataset.index;
-        socket.emit('move', { index });
+// Funkcja do obsługi kliknięcia
+function handleClick(index) {
+    return function () {
+        socket.emit('move', { roomId: currentRoomId, boardState: boardState, playerMark: playerMark, index: index });
+    };
+}
+
+// Funkcja do włączania obsługi kliknięcia
+function enableClick() {
+    cells.forEach((cell, index) => {
+        const clickHandler = handleClick(index);
+        cell.addEventListener('click', clickHandler);
+        cell.clickHandler = clickHandler; // Dodajemy referencję jako właściwość elementu
     });
-});
+}
 
-socket.on('updateGame', ({ boardState, winner }) => {
-    updateBoard(boardState);
+// Funkcja do wyłączania obsługi kliknięcia
+function disableClick() {
+    console.log("DISABLED CLICK YOU MORON");
+    cells.forEach((cell) => {
+        const clickHandler = cell.clickHandler;
+        if (clickHandler) {
+            cell.removeEventListener('click', clickHandler);
+            delete cell.clickHandler; // Usuwamy referencję
+        }
+    });
+}
 
-    if (winner) {
-        alert(`${winner} wygrywa!`);
-    } else if (!boardState.includes('')) {
-        alert('Remis!');
+
+
+
+socket.on('updateGame', (data) => {
+    boardState = data.boardState;
+    const nextMove = data.nextMove;
+    updateBoard();
+    if (nextMove == playerMark) {
+        enableClick();
+    }
+    else {
+        disableClick();
     }
 });
 
-function updateBoard(boardState) {
+socket.on('x', () => {
+    playerMark = 'X';
+    enableClick();
+});
+
+socket.on('o', () => {
+    playerMark = 'O';
+    disableClick();
+});
+
+socket.on('full room', (roomId) => {
+    alert(`Room ${roomId} is full!`);
+});
+
+socket.on('wrong move', () => {
+    alert('This move is incorect. Pick another tile.');
+    enableClick();
+})
+
+socket.on('winner', (data) => {
+    boardState = data.boardState;
+    updateBoard();
+    disableClick();
+    alert(`${data.winner} has won the match!`);
+})
+
+socket.on('draw', (data) => {
+    boardState = data.boardState;
+    updateBoard();
+    alert('Match ended in a draw');
+})
+
+function updateBoard() {
     cells.forEach((cell, index) => {
         cell.textContent = boardState[index];
     });
