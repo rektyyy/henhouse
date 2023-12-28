@@ -10,6 +10,11 @@ const cells = document.querySelectorAll('.cell');
 let currentRoomId = '0';
 let currentPlayer = 'X';
 
+function getRoomId() {
+    const params = new URLSearchParams(document.location.search);
+    return params.get("room");
+}
+socket.emit('join room', getRoomId());
 
 // Sends message to server 
 form.addEventListener('submit', (e) => {

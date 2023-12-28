@@ -26,7 +26,6 @@ io.on('connection', (socket) => {
   })
 
   socket.on('chat message', (data) => {
-    const senderSocketId = socket.id;
     console.log(`Server sending message to room ${data.roomId}: ${data.message}`)
     io.to(data.roomId).emit('chat message', data.message );
   });

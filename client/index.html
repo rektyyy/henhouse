@@ -3,31 +3,17 @@
 
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Socket.IO chat</title>
+    <title>Strona startowa</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
-    <div class="board" id="board">
-        <div class="cell" data-index="0"></div>
-        <div class="cell" data-index="1"></div>
-        <div class="cell" data-index="2"></div>
-        <div class="cell" data-index="3"></div>
-        <div class="cell" data-index="4"></div>
-        <div class="cell" data-index="5"></div>
-        <div class="cell" data-index="6"></div>
-        <div class="cell" data-index="7"></div>
-        <div class="cell" data-index="8"></div>
-      </div>
-    <ul id="messages"></ul>
-    <form id="form" action="">
-        <input id="input_room" autocomplete="off" />
-        <button id="button_room" type="button">Join room</button>
-        <input id="input_message" autocomplete="off" />
-        <button type="submit">Send</button>
-    </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="client.js"></script>
+    <h1>Strona startowa</h1>
+
+    <input id="input_room" autocomplete="off" />
+    <button id="button_room" type="submit">Join room</button>
+
+    <script type="text/javascript" src="index.js"></script>
 </body>
 
 </html>
