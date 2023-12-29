@@ -94,12 +94,15 @@ socket.on('updateGame', (data) => {
 
 socket.on('x', () => {
     playerMark = 'X';
-    enableClick();
 });
 
 socket.on('o', () => {
     playerMark = 'O';
-    disableClick();
+});
+
+socket.on('start game', () => {
+    if(playerMark == 'X') enableClick();
+
 });
 
 socket.on('full room', (roomId) => {
@@ -109,7 +112,7 @@ socket.on('full room', (roomId) => {
 socket.on('wrong move', () => {
     alert('This move is incorect. Pick another tile.');
     enableClick();
-})
+});
 
 socket.on('winner', (data) => {
     boardState = data.boardState;
@@ -130,6 +133,7 @@ function updateBoard() {
     });
 }
 
+// TODO: Delete after work
 // logs events
 socket.onAny((event, ...args) => {
     console.log(event, args);

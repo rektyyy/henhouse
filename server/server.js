@@ -12,7 +12,7 @@ app.use(express.static(__dirname + path));
 
 
 io.on('connection', (socket) => {
-
+  // TODO: Delete after work
   socket.onAny((event, ...args) => {
     console.log(event, args);
   });
@@ -27,6 +27,7 @@ io.on('connection', (socket) => {
     else if (clientsInRoom.size == 1) {
       socket.join(roomId);
       io.to(socket.id).emit('o');
+      io.to(roomId).emit('start game');
     }
     else {
       io.to(socket.id).emit('full room', roomId);
