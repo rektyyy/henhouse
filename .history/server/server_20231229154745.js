@@ -10,7 +10,7 @@ const path = "/../client"
 
 app.use(express.static(__dirname + path));
 
-const playersRequestingPlayAgain = new Set();
+
 io.on('connection', (socket) => {
   // TODO: Delete after work
   socket.onAny((event, ...args) => {
@@ -38,17 +38,12 @@ io.on('connection', (socket) => {
     console.log(`Server sending message to room ${data.roomId}: ${data.message}`)
     io.to(data.roomId).emit('chat message', data.message);
   });
-
   socket.on('play again', (roomId) => {
-    playersRequestingPlayAgain.add(socket.id);
 
-    if (playersRequestingPlayAgain.size === 2) {
-      playersRequestingPlayAgain.clear();
-      const winner = checkWinner(boardState);
-      io.to(roomId).emit('start game');
-    }
+    boardState = Array(9).fill('');
+    currentPlayer = 'X';
+    io.to(roomId).emit('start game', { boardState, winner: checkWinner() });
   });
-
   socket.on('move', (data) => {
     roomId = data.roomId;
     boardState = data.boardState;

@@ -4,25 +4,12 @@ const input_message = document.getElementById('input_message');
 const messages = document.getElementById('messages');
 const board = document.getElementById('board');
 const cells = document.querySelectorAll('.cell');
-const playAgainButton = document.getElementById('play-again');
-let hasRequestedPlayAgain = false;
-
-playAgainButton.addEventListener('click', () => {
-    playAgainButton.disabled = true;
-    hasRequestedPlayAgain = true;
-    socket.emit('play again', currentRoomId);
-    boardState = Array(9).fill('');
-    currentPlayer = 'X';
-    updateBoard();
-    hasRequestedPlayAgain = true;
-
-
-
+const playAgainBtn = document.getElementById('playAgainBtn');
+playAgainBtn.addEventListener('click', () => {
+  socket.emit('play again', currentRoomId);
 });
-
-playAgainButton.disabled = true
-var playerMark = '';
-var boardState = Array(9).fill('');
+let playerMark = '';
+let boardState = Array(9).fill('');
 
 function getRoomId() {
     const params = new URLSearchParams(document.location.search);
@@ -100,18 +87,11 @@ socket.on('o', () => {
     playerMark = 'O';
 });
 
-socket.on('start game', () => {
-
-    if (playerMark == 'X') enableClick();
-
-    if (hasRequestedPlayAgain) {
-
-        playAgainButton.disabled = false;
-
-        hasRequestedPlayAgain = false;
-    }
-
-});
+socket.on('start game', (data) => {
+    boardState = data.boardState;
+    updateBoard();
+    enableClick();
+  });;
 
 socket.on('full room', (roomId) => {
     alert(`Room ${roomId} is full!`);
@@ -126,14 +106,12 @@ socket.on('winner', (data) => {
     boardState = data.boardState;
     updateBoard();
     disableClick();
-    playAgainButton.disabled = false;
     alert(`${data.winner} has won the match!`);
 })
 
 socket.on('draw', (data) => {
     boardState = data.boardState;
     updateBoard();
-    playAgainButton.disabled = false;
     alert('Match ended in a draw');
 })
 

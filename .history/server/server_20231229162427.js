@@ -25,9 +25,11 @@ io.on('connection', (socket) => {
       io.to(socket.id).emit('x');
     }
     else if (clientsInRoom.size == 1) {
+      currentPlayer = 'X';
+      boardState = Array(9).fill('');
       socket.join(roomId);
       io.to(socket.id).emit('o');
-      io.to(roomId).emit('start game');
+      io.to(roomId).emit('start game', { boardState, currentPlayer });
     }
     else {
       io.to(socket.id).emit('full room', roomId);
@@ -42,8 +44,12 @@ io.on('connection', (socket) => {
   socket.on('play again', (roomId) => {
     playersRequestingPlayAgain.add(socket.id);
 
+
     if (playersRequestingPlayAgain.size === 2) {
       playersRequestingPlayAgain.clear();
+      boardState = Array(9).fill('');
+      currentPlayer = 'X';
+
       const winner = checkWinner(boardState);
       io.to(roomId).emit('start game');
     }

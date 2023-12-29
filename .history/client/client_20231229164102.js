@@ -9,7 +9,6 @@ let hasRequestedPlayAgain = false;
 
 playAgainButton.addEventListener('click', () => {
     playAgainButton.disabled = true;
-    hasRequestedPlayAgain = true;
     socket.emit('play again', currentRoomId);
     boardState = Array(9).fill('');
     currentPlayer = 'X';

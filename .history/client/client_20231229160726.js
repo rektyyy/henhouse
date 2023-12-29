@@ -6,19 +6,13 @@ const board = document.getElementById('board');
 const cells = document.querySelectorAll('.cell');
 const playAgainButton = document.getElementById('play-again');
 let hasRequestedPlayAgain = false;
-
 playAgainButton.addEventListener('click', () => {
-    playAgainButton.disabled = true;
-    hasRequestedPlayAgain = true;
-    socket.emit('play again', currentRoomId);
     boardState = Array(9).fill('');
     currentPlayer = 'X';
-    updateBoard();
+    socket.emit('play again', currentRoomId);
     hasRequestedPlayAgain = true;
-
-
-
-});
+    playAgainButton.disabled = true;
+  });
 
 playAgainButton.disabled = true
 var playerMark = '';
@@ -104,14 +98,12 @@ socket.on('start game', () => {
 
     if (playerMark == 'X') enableClick();
 
+
     if (hasRequestedPlayAgain) {
-
-        playAgainButton.disabled = false;
-
-        hasRequestedPlayAgain = false;
+      playAgainButton.disabled = false;
+      hasRequestedPlayAgain = false;
     }
-
-});
+  });
 
 socket.on('full room', (roomId) => {
     alert(`Room ${roomId} is full!`);

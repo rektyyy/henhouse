@@ -38,14 +38,25 @@ io.on('connection', (socket) => {
     console.log(`Server sending message to room ${data.roomId}: ${data.message}`)
     io.to(data.roomId).emit('chat message', data.message);
   });
-
+  // Update the 'play again' event on the server side
   socket.on('play again', (roomId) => {
+    // Add the player to the set of players requesting to play again
     playersRequestingPlayAgain.add(socket.id);
 
+    // Check if both players have requested to play again
     if (playersRequestingPlayAgain.size === 2) {
+      // Reset the set of players requesting to play again
       playersRequestingPlayAgain.clear();
+
+      // Reset the boardState
+      boardState = Array(9).fill('');
+      currentPlayer = 'X';
+
+      // Determine the winner for the previous game
       const winner = checkWinner(boardState);
-      io.to(roomId).emit('start game');
+
+      // Notify both players to start the game again, sending boardState and winner
+      io.to(roomId).emit('start game', { boardState, winner });
     }
   });
 

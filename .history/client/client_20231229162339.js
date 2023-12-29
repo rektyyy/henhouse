@@ -8,15 +8,13 @@ const playAgainButton = document.getElementById('play-again');
 let hasRequestedPlayAgain = false;
 
 playAgainButton.addEventListener('click', () => {
+
     playAgainButton.disabled = true;
-    hasRequestedPlayAgain = true;
     socket.emit('play again', currentRoomId);
-    boardState = Array(9).fill('');
-    currentPlayer = 'X';
-    updateBoard();
+    // boardState = Array(9).fill('');
+    // currentPlayer = 'X';
+    // updateBoard();
     hasRequestedPlayAgain = true;
-
-
 
 });
 
@@ -99,18 +97,19 @@ socket.on('x', () => {
 socket.on('o', () => {
     playerMark = 'O';
 });
-
-socket.on('start game', () => {
-
+socket.on('start game', (data) => {
     if (playerMark == 'X') enableClick();
-
     if (hasRequestedPlayAgain) {
-
         playAgainButton.disabled = false;
-
         hasRequestedPlayAgain = false;
     }
+    boardState = data.boardState;
+    currentPlayer = data.currentPlayer;
 
+
+    updateBoard();
+    enableClick();
+    playAgainButton.disabled = false;
 });
 
 socket.on('full room', (roomId) => {

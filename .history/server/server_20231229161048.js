@@ -42,8 +42,12 @@ io.on('connection', (socket) => {
   socket.on('play again', (roomId) => {
     playersRequestingPlayAgain.add(socket.id);
 
+
     if (playersRequestingPlayAgain.size === 2) {
       playersRequestingPlayAgain.clear();
+      boardState = Array(9).fill('');
+      currentPlayer = 'X';
+
       const winner = checkWinner(boardState);
       io.to(roomId).emit('start game');
     }

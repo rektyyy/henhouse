@@ -8,14 +8,13 @@ const playAgainButton = document.getElementById('play-again');
 let hasRequestedPlayAgain = false;
 
 playAgainButton.addEventListener('click', () => {
-    playAgainButton.disabled = true;
-    hasRequestedPlayAgain = true;
+
     socket.emit('play again', currentRoomId);
     boardState = Array(9).fill('');
     currentPlayer = 'X';
     updateBoard();
     hasRequestedPlayAgain = true;
-
+    playAgainButton.disabled = true;
 
 
 });

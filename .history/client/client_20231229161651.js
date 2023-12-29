@@ -8,16 +8,10 @@ const playAgainButton = document.getElementById('play-again');
 let hasRequestedPlayAgain = false;
 
 playAgainButton.addEventListener('click', () => {
-    playAgainButton.disabled = true;
-    hasRequestedPlayAgain = true;
+
     socket.emit('play again', currentRoomId);
-    boardState = Array(9).fill('');
-    currentPlayer = 'X';
-    updateBoard();
     hasRequestedPlayAgain = true;
-
-
-
+    playAgainButton.disabled = true;
 });
 
 playAgainButton.disabled = true
@@ -105,12 +99,14 @@ socket.on('start game', () => {
     if (playerMark == 'X') enableClick();
 
     if (hasRequestedPlayAgain) {
-
         playAgainButton.disabled = false;
-
         hasRequestedPlayAgain = false;
     }
+    const { boardState, winner } = data;
 
+
+    boardState = Array(9).fill('');
+    updateBoard();
 });
 
 socket.on('full room', (roomId) => {
