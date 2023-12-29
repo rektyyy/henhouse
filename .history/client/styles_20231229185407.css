@@ -64,8 +64,6 @@ body {
     padding: 0.5rem;
     box-sizing: border-box;
     backdrop-filter: blur(10px);
-    display: flex;
-    align-items: left;
 }
 
 #input_message {

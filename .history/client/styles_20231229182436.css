@@ -1,17 +1,17 @@
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
 }
 
 .container {
     display: flex;
+    flex-direction: column;
 }
 
 #board {
+    grid-column: 2;
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-gap: 5px;
@@ -35,18 +35,20 @@ body {
 }
 
 .chat-container {
-    flex-grow: 1;
+    grid-column: 1;
     display: flex;
     flex-direction: column;
     max-height: 100vh;
     overflow: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
 }
 
 .chat-box {
     flex-grow: 1;
     overflow-y: auto;
     border: 1px solid #ccc;
-    max-height: 200px;
     padding: 0.5rem;
     box-sizing: border-box;
     backdrop-filter: blur(10px);
@@ -65,7 +67,7 @@ body {
     box-sizing: border-box;
     backdrop-filter: blur(10px);
     display: flex;
-    align-items: left;
+    align-items: center;
 }
 
 #input_message {

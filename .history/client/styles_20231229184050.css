@@ -4,7 +4,7 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #f0f0f0; /* Light gray background color */
 }
 
 .container {
@@ -27,11 +27,11 @@ body {
     justify-content: center;
     font-size: 24px;
     cursor: pointer;
-    background-color: #fff;
+    background-color: #fff; /* White cell background color */
 }
 
 .cell:hover {
-    background-color: #e0e0e0;
+    background-color: #e0e0e0; /* Light gray cell background color on hover */
 }
 
 .chat-container {
@@ -46,11 +46,11 @@ body {
     flex-grow: 1;
     overflow-y: auto;
     border: 1px solid #ccc;
-    max-height: 200px;
+    max-height: 000px;
     padding: 0.5rem;
     box-sizing: border-box;
     backdrop-filter: blur(10px);
-    background-color: #fff;
+    background-color: #fff; /* White chat box background color */
 }
 
 .chat {
@@ -65,7 +65,7 @@ body {
     box-sizing: border-box;
     backdrop-filter: blur(10px);
     display: flex;
-    align-items: left;
+    align-items: center;
 }
 
 #input_message {
@@ -75,8 +75,8 @@ body {
     border-radius: 0.25rem;
     margin-right: 0.5rem;
     font-size: 16px;
-    background-color: #eee;
-    color: #333;
+    background-color: #eee; /* Light gray input background color */
+    color: #333; /* Dark text color */
 }
 
 #input_message:focus {
@@ -84,22 +84,22 @@ body {
 }
 
 .chat-form>button {
-    background: #61dafb;
+    background: #61dafb; /* Light blue button color */
     border: none;
     padding: 0.5rem;
     border-radius: 0.25rem;
-    color: #fff;
+    color: #fff; /* White text color */
     font-size: 16px;
     cursor: pointer;
     outline: none;
 }
 
 #play-again {
-    background: #61dafb;
+    background: #61dafb; /* Light blue button color */
     border: none;
     padding: 0.5rem;
     border-radius: 0.25rem;
-    color: #fff;
+    color: #fff; /* White text color */
     font-size: 16px;
     cursor: pointer;
     outline: none;

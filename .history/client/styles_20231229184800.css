@@ -4,7 +4,6 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
 }
 
 .container {
@@ -27,11 +26,10 @@ body {
     justify-content: center;
     font-size: 24px;
     cursor: pointer;
-    background-color: #fff;
 }
 
 .cell:hover {
-    background-color: #e0e0e0;
+    background-color: #eee;
 }
 
 .chat-container {
@@ -50,7 +48,6 @@ body {
     padding: 0.5rem;
     box-sizing: border-box;
     backdrop-filter: blur(10px);
-    background-color: #fff;
 }
 
 .chat {
@@ -64,8 +61,6 @@ body {
     padding: 0.5rem;
     box-sizing: border-box;
     backdrop-filter: blur(10px);
-    display: flex;
-    align-items: left;
 }
 
 #input_message {
@@ -75,8 +70,6 @@ body {
     border-radius: 0.25rem;
     margin-right: 0.5rem;
     font-size: 16px;
-    background-color: #eee;
-    color: #333;
 }
 
 #input_message:focus {
@@ -84,22 +77,22 @@ body {
 }
 
 .chat-form>button {
-    background: #61dafb;
+    background: #fff;
     border: none;
     padding: 0.5rem;
     border-radius: 0.25rem;
-    color: #fff;
+    color: #333;
     font-size: 16px;
     cursor: pointer;
     outline: none;
 }
 
 #play-again {
-    background: #61dafb;
+    background: #fff;
     border: none;
     padding: 0.5rem;
     border-radius: 0.25rem;
-    color: #fff;
+    color: #333;
     font-size: 16px;
     cursor: pointer;
     outline: none;

@@ -46,7 +46,7 @@ body {
     flex-grow: 1;
     overflow-y: auto;
     border: 1px solid #ccc;
-    max-height: 200px;
+    max-height: 100vh;
     padding: 0.5rem;
     box-sizing: border-box;
     backdrop-filter: blur(10px);
