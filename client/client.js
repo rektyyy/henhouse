@@ -1,8 +1,6 @@
 const socket = io();
 const form = document.getElementById('form');
 const input_message = document.getElementById('input_message');
-const input_room = document.getElementById('input_room');
-const button_room = document.getElementById('button_room');
 const messages = document.getElementById('messages');
 const board = document.getElementById('board');
 const cells = document.querySelectorAll('.cell');
@@ -27,17 +25,6 @@ form.addEventListener('submit', (e) => {
         input_message.value = '';
     }
 });
-
-// Sends join room to server
-button_room.addEventListener('click', () => {
-    if (input_room.value) {
-        currentRoomId = input_room.value;
-        socket.emit("join room", currentRoomId);
-        console.log(`Sent event to join room ${currentRoomId}`);
-        input_room.value = '';
-    }
-
-})
 
 // Client recieves message
 socket.on('chat message', (msg) => {
@@ -77,9 +64,6 @@ function disableClick() {
     });
 }
 
-
-
-
 socket.on('updateGame', (data) => {
     boardState = data.boardState;
     const nextMove = data.nextMove;
@@ -102,7 +86,6 @@ socket.on('o', () => {
 
 socket.on('start game', () => {
     if(playerMark == 'X') enableClick();
-
 });
 
 socket.on('full room', (roomId) => {

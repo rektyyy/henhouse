@@ -14,3 +14,8 @@ Game platform
     - console.log
     - event loggers marked by TODO comment
 5. Add a better readme.
+
+### Addidional
+
+1. Add spectators in rooms
+2. Randomly choosing players

@@ -44,6 +44,7 @@ io.on('connection', (socket) => {
     boardState = data.boardState;
     playerMark = data.playerMark;
     index = data.index;
+
     if (boardState[index] == '') {
       boardState[index] = playerMark;
       let winCheck = checkWinner(boardState);
