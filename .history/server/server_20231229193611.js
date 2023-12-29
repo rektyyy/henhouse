@@ -18,6 +18,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('join room', (roomId) => {
+    console.log(`Recieved event to join room ${roomId} from client ${socket.id}`)
     const clientsInRoom = io.sockets.adapter.rooms.get(roomId);
     if (clientsInRoom === undefined) {
       socket.join(roomId);

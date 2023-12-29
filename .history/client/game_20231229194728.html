@@ -22,8 +22,8 @@
             <div class="cell"></div>
         </div>
         <div class="chat-container">
-            <div class="chat-box">
-                <ul id="messages" class="chat"></ul>
+            <div class="chat-box" id="messages">
+                <!-- Messages will be appended here -->
             </div>
             <form id="form" action="" class="chat-form">
                 <input id="input_message" autocomplete="off" />
@@ -35,6 +35,28 @@
     <button id="main-menu">Main Menu</button>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="client.js"></script>
+    <script>
+        // Example code to dynamically create and append elements
+        const messagesContainer = document.getElementById('messages');
+        const messages = ['Message 1', 'Message 2', 'Message 3'];
+
+        messages.forEach(messageText => {
+            const messageContainer = document.createElement('div');
+            messageContainer.classList.add('container', 'darker');
+
+            const messageParagraph = document.createElement('p');
+            messageParagraph.textContent = messageText;
+
+            const timeSpan = document.createElement('span');
+            timeSpan.classList.add('time-left');
+            timeSpan.textContent = '11:01';
+
+            messageContainer.appendChild(messageParagraph);
+            messageContainer.appendChild(timeSpan);
+
+            messagesContainer.appendChild(messageContainer);
+        });
+    </script>
 </body>
 
 </html>

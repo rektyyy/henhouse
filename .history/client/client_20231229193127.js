@@ -20,7 +20,6 @@ playAgainButton.addEventListener('click', () => {
 });
 
 mainMenuButton.addEventListener('click',()=>{
-    socket.emit('main menu', currentRoomId);
     window.location.href = '/index.html';
 } )
 

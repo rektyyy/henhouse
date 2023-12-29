@@ -19,11 +19,10 @@ playAgainButton.addEventListener('click', () => {
 
 });
 
-mainMenuButton.addEventListener('click',()=>{
+mainMenuButton.addEventListener('click', () => {
     socket.emit('main menu', currentRoomId);
     window.location.href = '/index.html';
-} )
-
+});
 function getRoomId() {
     const params = new URLSearchParams(document.location.search);
     return params.get("room");

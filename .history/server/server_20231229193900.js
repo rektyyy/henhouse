@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('main menu', (roomId) => {
-    io.to(roomId).emit('chat message', 'A player has left the game.');
+    io.to(roomId).emit('chat message', { userId: socket.id, message: 'A player has left the game.' });
   });
 
   socket.on('play again', (roomId) => {

@@ -18,6 +18,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('join room', (roomId) => {
+    console.log(`Recieved event to join room ${roomId} from client ${socket.id}`)
     const clientsInRoom = io.sockets.adapter.rooms.get(roomId);
     if (clientsInRoom === undefined) {
       socket.join(roomId);
@@ -38,17 +39,13 @@ io.on('connection', (socket) => {
     io.to(data.roomId).emit('chat message', data.message);
   });
 
-  socket.on('main menu', (roomId) => {
-    io.to(roomId).emit('chat message', 'A player has left the game.');
-  });
-
   socket.on('play again', (roomId) => {
     playersRequestingPlayAgain.add(socket.id);
-    io.to(roomId).emit('chat message', 'Player wants to play again!'
+    io.to(roomId).emit('chat message','Player wants to play again!'
     );
     if (playersRequestingPlayAgain.size === 2) {
       playersRequestingPlayAgain.clear();
-      io.to(roomId).emit('chat message', 'Game starts again!')
+      io.to(roomId).emit('chat message','Game starts again!' )
 
       io.to(roomId).emit('start game');
     }

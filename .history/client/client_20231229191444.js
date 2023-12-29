@@ -5,12 +5,8 @@ const messages = document.getElementById('messages');
 const board = document.getElementById('board');
 const cells = document.querySelectorAll('.cell');
 const playAgainButton = document.getElementById('play-again');
-const mainMenuButton = document.getElementById('main-menu');
 const sendButton = document.getElementById('sendButton');
 let hasRequestedPlayAgain = false;
-playAgainButton.style.display = 'none';
-var playerMark = '';
-var boardState = Array(9).fill('');
 
 playAgainButton.addEventListener('click', () => {
     playAgainButton.style.display = 'none';
@@ -19,10 +15,9 @@ playAgainButton.addEventListener('click', () => {
 
 });
 
-mainMenuButton.addEventListener('click',()=>{
-    socket.emit('main menu', currentRoomId);
-    window.location.href = '/index.html';
-} )
+playAgainButton.style.display = 'none';
+var playerMark = '';
+var boardState = Array(9).fill('');
 
 function getRoomId() {
     const params = new URLSearchParams(document.location.search);
@@ -101,18 +96,21 @@ socket.on('o', () => {
 
 socket.on('start game', () => {
     boardState = Array(9).fill('');
-    currentPlayer = 'X';
     updateBoard();
-    if (playerMark == 'X') enableClick();
+    const players = ['X', 'O'];
+    currentPlayer = players[Math.floor(Math.random() * players.length)];
+
+
+    socket.emit('chat message', { roomId: currentRoomId, message: (currentPlayer + " starts!") });
+
+    if (playerMark == currentPlayer) enableClick();
 
     if (hasRequestedPlayAgain) {
-
-        playAgainButton.disabled = true;
-
+        playAgainButton.style.display = 'none';
         hasRequestedPlayAgain = false;
     }
-
 });
+
 
 socket.on('full room', (roomId) => {
     alert(`Room ${roomId} is full!`);

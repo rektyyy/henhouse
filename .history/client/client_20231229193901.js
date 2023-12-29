@@ -19,11 +19,10 @@ playAgainButton.addEventListener('click', () => {
 
 });
 
-mainMenuButton.addEventListener('click',()=>{
+mainMenuButton.addEventListener('click', () => {
     socket.emit('main menu', currentRoomId);
     window.location.href = '/index.html';
-} )
-
+});
 function getRoomId() {
     const params = new URLSearchParams(document.location.search);
     return params.get("room");
@@ -41,15 +40,15 @@ sendButton.addEventListener('click', () => {
     }
 });
 
-// Client recieves message
-socket.on('chat message', (msg) => {
-    console.log(`Client recieved a message ${msg}`)
+
+socket.on('chat message', (data) => {
+    console.log(`Client received a message from ${data.userId}: ${data.message}`);
     const item = document.createElement('li');
-    item.textContent = msg;
+    item.textContent = `${data.userId}: ${data.message}`;
     messages.appendChild(item);
 });
 
-// Funkcja do obsługi kliknięcia
+
 function handleClick(index) {
     return function () {
         console.log(`Sending move to server from ${socket.id}`);
@@ -58,23 +57,23 @@ function handleClick(index) {
     };
 }
 
-// Funkcja do włączania obsługi kliknięcia
+
 function enableClick() {
     cells.forEach((cell, index) => {
         const clickHandler = handleClick(index);
         cell.addEventListener('click', clickHandler);
-        cell.clickHandler = clickHandler; // Dodajemy referencję jako właściwość elementu
+        cell.clickHandler = clickHandler;
     });
 }
 
-// Funkcja do wyłączania obsługi kliknięcia
+
 function disableClick() {
     console.log("DISABLED CLICK YOU MORON");
     cells.forEach((cell) => {
         const clickHandler = cell.clickHandler;
         if (clickHandler) {
             cell.removeEventListener('click', clickHandler);
-            delete cell.clickHandler; // Usuwamy referencję
+            delete cell.clickHandler;
         }
     });
 }

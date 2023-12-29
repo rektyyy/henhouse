@@ -1,4 +1,6 @@
-body {
+/* Add this to your existing styles.css or create a new CSS file */
+
+.container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,11 +9,7 @@ body {
     background-color: #f0f0f0;
 }
 
-.container {
-    display: flex;
-}
-
-#board {
+.board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-gap: 5px;
@@ -46,7 +44,7 @@ body {
     flex-grow: 1;
     overflow-y: auto;
     border: 1px solid #ccc;
-    max-height: 200px;
+    max-height: 2000px;
     padding: 0.5rem;
     box-sizing: border-box;
     backdrop-filter: blur(10px);
@@ -64,8 +62,6 @@ body {
     padding: 0.5rem;
     box-sizing: border-box;
     backdrop-filter: blur(10px);
-    display: flex;
-    align-items: left;
 }
 
 #input_message {
@@ -83,42 +79,49 @@ body {
     outline: none;
 }
 
-.chat-form>button {
-    background: #61dafb;
+.chat-form > button {
+    background: #fff;
     border: none;
     padding: 0.5rem;
     border-radius: 0.25rem;
-    color: #fff;
+    color: #333;
     font-size: 16px;
     cursor: pointer;
     outline: none;
 }
 
-#play-again {
-    background: #61dafb;
-    border: none;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    outline: none;
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-}
-
+#play-again,
 #main-menu {
-    background: #61dafb;
+    background: #fff;
     border: none;
     padding: 0.5rem;
     border-radius: 0.25rem;
-    color: #fff;
+    color: #333;
     font-size: 16px;
     cursor: pointer;
     outline: none;
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
+    margin-top: 1rem;
 }
 
+/* Styling for chat messages */
+.container.darker {
+    background-color: #f0f0f0;
+}
+
+.container.darker p {
+    background-color: #61dafb;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 8px;
+    position: relative;
+}
+
+.container.darker .time-left {
+    color: #999;
+    font-size: 12px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 10px;
+}
