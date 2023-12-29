@@ -38,16 +38,31 @@ io.on('connection', (socket) => {
     console.log(`Server sending message to room ${data.roomId}: ${data.message}`)
     io.to(data.roomId).emit('chat message', data.message);
   });
+  socket.on('play again requested', (roomId) => {
+    playersRequestingPlayAgain.add(socket.id);
 
+    socket.to(roomId).emit('play again requested');
+
+
+    io.to(socket.id).emit('chat message', {
+      roomId: roomId,
+      message: 'You have requested to play again. Waiting for the other player...',
+    });
+  });
   socket.on('play again', (roomId) => {
     playersRequestingPlayAgain.add(socket.id);
-    io.to(roomId).emit('chat message','Player wants to play again!'
-    );
+
     if (playersRequestingPlayAgain.size === 2) {
       playersRequestingPlayAgain.clear();
-      io.to(roomId).emit('chat message','Game starts again!' )
+      const winner = checkWinner(boardState);
+
 
       io.to(roomId).emit('start game');
+
+      io.to(roomId).emit('chat message', {
+        roomId: roomId,
+        message: 'The game is starting again. Good luck!',
+      });
     }
   });
 

@@ -41,50 +41,53 @@ io.on('connection', (socket) => {
 
   socket.on('play again', (roomId) => {
     playersRequestingPlayAgain.add(socket.id);
-    io.to(roomId).emit('chat message','Player wants to play again!'
-    );
+    io.to(roomId).emit('chat message', {
+      roomId: roomId,
+      message: 'Player wants to play again!',
+    });
     if (playersRequestingPlayAgain.size === 2) {
       playersRequestingPlayAgain.clear();
-      io.to(roomId).emit('chat message','Game starts again!' )
+      io.to(roomId).emit('chat message',
+        { message: 'Game starts again!' })
 
-      io.to(roomId).emit('start game');
-    }
+  io.to(roomId).emit('start game');
+}
   });
 
-  socket.on('move', (data) => {
-    roomId = data.roomId;
-    boardState = data.boardState;
-    playerMark = data.playerMark;
-    index = data.index;
+socket.on('move', (data) => {
+  roomId = data.roomId;
+  boardState = data.boardState;
+  playerMark = data.playerMark;
+  index = data.index;
 
-    if (boardState[index] == '') {
-      boardState[index] = playerMark;
-      let winCheck = checkWinner(boardState);
-      if (winCheck == 'Draw') {
-        io.to(roomId).emit('draw', { boardState: boardState });
-      }
-      if (playerMark == 'X') {
-        if (winCheck == 'X') {
-          io.to(roomId).emit('winner', { boardState: boardState, winner: 'X' });
-        }
-        else {
-          io.to(roomId).emit('updateGame', { boardState: boardState, nextMove: 'O' });
-        }
+  if (boardState[index] == '') {
+    boardState[index] = playerMark;
+    let winCheck = checkWinner(boardState);
+    if (winCheck == 'Draw') {
+      io.to(roomId).emit('draw', { boardState: boardState });
+    }
+    if (playerMark == 'X') {
+      if (winCheck == 'X') {
+        io.to(roomId).emit('winner', { boardState: boardState, winner: 'X' });
       }
       else {
-        if (winCheck == 'O') {
-          io.to(roomId).emit('winner', { boardState: boardState, winner: 'O' });
-        }
-        else {
-          io.to(roomId).emit('updateGame', { boardState: boardState, nextMove: 'X' });
-        }
+        io.to(roomId).emit('updateGame', { boardState: boardState, nextMove: 'O' });
       }
     }
     else {
-      console.log(`Sending wrong move to ${socket.id}`);
-      io.to(socket.id).emit('wrong move');
+      if (winCheck == 'O') {
+        io.to(roomId).emit('winner', { boardState: boardState, winner: 'O' });
+      }
+      else {
+        io.to(roomId).emit('updateGame', { boardState: boardState, nextMove: 'X' });
+      }
     }
-  });
+  }
+  else {
+    console.log(`Sending wrong move to ${socket.id}`);
+    io.to(socket.id).emit('wrong move');
+  }
+});
 });
 
 function checkWinner(boardState) {

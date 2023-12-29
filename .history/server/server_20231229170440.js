@@ -41,12 +41,16 @@ io.on('connection', (socket) => {
 
   socket.on('play again', (roomId) => {
     playersRequestingPlayAgain.add(socket.id);
-    io.to(roomId).emit('chat message','Player wants to play again!'
-    );
+    io.to(roomId).emit('chat message', {
+      roomId: roomId,
+      message: 'Player wants to play again!',
+    });
     if (playersRequestingPlayAgain.size === 2) {
       playersRequestingPlayAgain.clear();
-      io.to(roomId).emit('chat message','Game starts again!' )
-
+      io.to(roomId).emit('chat message', {
+        roomId: roomId,
+        message: 'Game starts again!',
+      });
       io.to(roomId).emit('start game');
     }
   });

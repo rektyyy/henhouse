@@ -102,7 +102,7 @@ socket.on('start game', () => {
 
     if (hasRequestedPlayAgain) {
 
-        playAgainButton.disabled = true;
+        playAgainButton.disabled = false;
 
         hasRequestedPlayAgain = false;
     }
