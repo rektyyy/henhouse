@@ -50,7 +50,9 @@ socket.on('chat message', (msg) => {
 // Funkcja do obsługi kliknięcia
 function handleClick(index) {
     return function () {
+        console.log(`Sending move to server from ${socket.id}`);
         socket.emit('move', { roomId: currentRoomId, boardState: boardState, playerMark: playerMark, index: index });
+        disableClick();
     };
 }
 

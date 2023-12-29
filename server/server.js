@@ -67,6 +67,7 @@ io.on('connection', (socket) => {
       }
     }
     else {
+      console.log(`Sending wrong move to ${socket.id}`);
       io.to(socket.id).emit('wrong move');
     }
   });
