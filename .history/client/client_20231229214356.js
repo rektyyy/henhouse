@@ -46,12 +46,11 @@ socket.on('chat message', (data) => {
     const item = document.createElement('li');
     item.textContent = data.message;
 
+    // Check if the message is from the current user
     if (data.user === socket.id) {
-        item.classList.add('my-message');
-    } else if (data.user === 'Server') {
-        item.classList.add('server-message');
+        item.classList.add('my-message'); // For messages from the current user
     } else {
-        item.classList.add('other-message');
+        item.classList.add('other-message'); // For messages from other users
     }
 
     messages.appendChild(item);

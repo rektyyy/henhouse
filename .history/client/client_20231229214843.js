@@ -42,20 +42,25 @@ sendButton.addEventListener('click', () => {
 });
 
 // Client receives a message
+// Client receives a message
 socket.on('chat message', (data) => {
     const item = document.createElement('li');
     item.textContent = data.message;
 
     if (data.user === socket.id) {
+        // Message sent by current user
         item.classList.add('my-message');
     } else if (data.user === 'Server') {
+        // Message sent by the server
         item.classList.add('server-message');
     } else {
-        item.classList.add('other-message');
+        // Message sent by other users
+        item.classList.add('other-user-message');
     }
 
     messages.appendChild(item);
 });
+
 
 
 // Funkcja do obsługi kliknięcia

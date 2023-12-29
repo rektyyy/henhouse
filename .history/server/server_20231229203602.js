@@ -34,15 +34,12 @@ io.on('connection', (socket) => {
   })
 
   socket.on('chat message', (data) => {
-    // Assuming 'data' contains the message text
-    const messageData = { user: socket.id, message: data.message };
-    io.to(data.roomId).emit('chat message', messageData);
-});
-
+    console.log(`Server sending message to room ${data.roomId}: ${data.message}`)
+    io.to(data.roomId).emit('chat message', data.message);
+  });
 
   socket.on('main menu', (roomId) => {
-    io.to(roomId).emit('chat message', { user: 'Server', message: 'A player has left the game.' });
-
+    io.to(roomId).emit('chat message', 'A player has left the game.');
   });
 
   socket.on('play again', (roomId) => {

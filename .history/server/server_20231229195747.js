@@ -11,6 +11,17 @@ const path = "/../client"
 app.use(express.static(__dirname + path));
 
 const playersRequestingPlayAgain = new Set();
+
+function showWaitingMessage() {
+  const waitingContainer = document.getElementById('waiting-container');
+  waitingContainer.style.display = 'flex';
+}
+
+function hideWaitingMessage() {
+  const waitingContainer = document.getElementById('waiting-container');
+  waitingContainer.style.display = 'none';
+}
+
 io.on('connection', (socket) => {
   // TODO: Delete after work
   socket.onAny((event, ...args) => {
@@ -22,40 +33,32 @@ io.on('connection', (socket) => {
     if (clientsInRoom === undefined) {
       socket.join(roomId);
       io.to(socket.id).emit('x');
-    }
-    else if (clientsInRoom.size == 1) {
+      hideWaitingMessage(); // Player joined, hide waiting message
+    } else if (clientsInRoom.size == 1) {
       socket.join(roomId);
       io.to(socket.id).emit('o');
       io.to(roomId).emit('start game');
-    }
-    else {
+      hideWaitingMessage(); // Player joined, hide waiting message
+    } else {
       io.to(socket.id).emit('full room', roomId);
     }
-  })
+  });
 
   socket.on('chat message', (data) => {
-    // Assuming 'data' contains the message text
-    const messageData = { user: socket.id, message: data.message };
-    io.to(data.roomId).emit('chat message', messageData);
-});
-
-
-  socket.on('main menu', (roomId) => {
-    io.to(roomId).emit('chat message', { user: 'Server', message: 'A player has left the game.' });
-
+    console.log(`Server sending message to room ${data.roomId}: ${data.message}`)
+    io.to(data.roomId).emit('chat message', data.message);
   });
 
   socket.on('play again', (roomId) => {
     playersRequestingPlayAgain.add(socket.id);
-    io.to(roomId).emit('chat message', 'Player wants to play again!'
-    );
+    io.to(roomId).emit('chat message', 'Player wants to play again!');
     if (playersRequestingPlayAgain.size === 2) {
       playersRequestingPlayAgain.clear();
-      io.to(roomId).emit('chat message', 'Game starts again!')
-
+      io.to(roomId).emit('chat message', 'Game starts again!');
       io.to(roomId).emit('start game');
+      hideWaitingMessage(); // Players are ready, hide waiting message
     }
-  });
+  });;
 
   socket.on('move', (data) => {
     roomId = data.roomId;

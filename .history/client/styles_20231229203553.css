@@ -1,0 +1,48 @@
+.game-container {
+    display: flex;
+    height: 100vh;
+}
+
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #ccc;
+}
+
+.chat-box {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.board-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    /* Add more styles for the board */
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Add more styles for the cells */
+}
+
+.control-buttons {
+    margin-top: 20px;
+}
+
+/* Add more styles for responsiveness and aesthetic improvements */

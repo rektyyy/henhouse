@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+}
+
+.container {
+    display: flex;
+    flex-direction: row; /* Aligns children horizontally */
+    width: 100%;
+    height: 100vh;
+}
+
+.chat-container {
+    width: 300px; /* Fixed width for the chat */
+    height: 100vh; /* Full height of the viewport */
+    border-right: 1px solid #ccc; /* Border to separate chat from the board */
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Allows scrolling for overflow content */
+}
+
+.board-container {
+    flex-grow: 1; /* Allows the board container to fill remaining space */
+    display: flex;
+    justify-content: center; /* Centers the board horizontally */
+    align-items: center; /* Centers the board vertically */
+    padding: 20px; /* Padding around the board */
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 3 columns with equal width */
+    grid-gap: 10px; /* Gap between cells */
+    padding: 10px; /* Padding around the grid */
+    max-width: 600px; /* Maximum width for the board */
+    margin: auto; /* Centers the board in the available space */
+}
+
+.cell {
+    aspect-ratio: 1 / 1; /* Ensures that cells are always square */
+    border: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.cell:hover {
+    background-color: #e0e0e0;
+}
+
+.chat {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-form {
+    display: flex;
+    align-items: center;
+    background: #333;
+    padding: 0.5rem;
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+}
+
+#input_message {
+    width: 70%;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 16px;
+    background-color: #eee;
+    color: #333;
+}
+
+#input_message:focus {
+    outline: none;
+}
+
+.chat-form > button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    background: #61dafb;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+#play-again, #main-menu {
+    position: absolute;
+    bottom: 1rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    background: #61dafb;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+#play-again {
+    right: 1rem;
+}
+
+#main-menu {
+    left: 1rem;
+}

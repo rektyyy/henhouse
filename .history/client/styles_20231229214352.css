@@ -168,8 +168,3 @@ body {
     border-radius: 10px; /* Rounded corners for the message bubble */
     border: 1px solid #d3d3d3; /* Slight border for the bubble */
 }
-.server-message {
-    color: #FF9800; /* Example: Orange text */
-    font-style: italic;
-    /* Add other styling as needed */
-}

@@ -1,0 +1,123 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    display: flex;
+    width: 100%; /* Set width to 100% of the viewport */
+    max-width: 1200px; /* Maximum width for larger screens */
+    height: 90%; /* Adjusted for visual comfort */
+    flex-direction: row-reverse; /* Board on the left, chat on the right */
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+    margin-right: 1rem; /* Spacing between board and chat */
+    flex-shrink: 0; /* Prevents the board from shrinking */
+    flex-basis: auto; /* Allows the board to maintain its size */
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.cell:hover {
+    background-color: #e0e0e0;
+}
+
+.chat-container {
+    flex: 1; /* Flex grow to take up remaining space */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-left: 1rem; /* Spacing from the left edge */
+}
+
+.chat-box {
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    background-color: #fff;
+}
+
+.chat {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-form {
+    background: #333;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+}
+
+#input_message {
+    border: none;
+    padding: 0.5rem;
+    width: 70%;
+    border-radius: 0.25rem;
+    margin-right: 0.5rem;
+    font-size: 16px;
+    background-color: #eee;
+    color: #333;
+}
+
+#input_message:focus {
+    outline: none;
+}
+
+.chat-form > button {
+    background: #61dafb;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+#play-again, #main-menu {
+    background: #61dafb;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    position: absolute;
+    bottom: 1rem;
+}
+
+#play-again {
+    right: 1rem;
+}
+
+#main-menu {
+    left: 1rem;
+}
+
+/* Additional media queries for responsiveness, if needed */

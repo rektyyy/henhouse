@@ -1,38 +1,38 @@
-
+/* Reset some basic elements */
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    box-sizing: border-box;
+    height: 100%; /* Full height */
+    box-sizing: border-box; /* Border-box sizing model */
 }
 
-
+/* Apply box-sizing to all elements */
 *, *:before, *:after {
     box-sizing: inherit;
 }
 
-
+/* Use Google Fonts for nicer typography */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
 
 body {
     display: flex; /* Flex container for the whole viewport */
-    flex-direction: column;
-    font-family: 'Open Sans', Arial, sans-serif;
-    background-color: #f7f7f7;
+    flex-direction: column; /* Stack children vertically */
+    font-family: 'Open Sans', Arial, sans-serif; /* Use a nicer font */
+    background-color: #f7f7f7; /* Updated background color */
 }
 
 .container {
-    display: flex;
-    flex: 1;
-    min-height: 0;
+    display: flex; /* Create a flex container */
+    flex: 1; /* Take up all available space */
+    min-height: 0; /* Prevent flex items from overflowing */
     flex-wrap: nowrap;
 }
 
 /* Styling for the board */
 .board {
     display: grid;
-    grid-template-columns: repeat(3, 150px);
-    grid-gap: 10px;
+    grid-template-columns: repeat(3, 150px); /* Larger columns */
+    grid-gap: 10px; /* Increase space between cells */
     padding: 20px; /* Increased padding around the grid */
     margin: auto; /* Center the board in the available space */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow around the board */
@@ -69,16 +69,15 @@ body {
 
 /* Styling for the chat form at the bottom */
 .chat-form {
-    display: flex;
-    flex-direction: column; /* Stack children vertically */
+    display: flex; /* Use flexbox layout */
     margin-top: auto; /* Keep the chat form at the bottom */
     padding: 10px; /* Padding inside the chat form */
 }
 
 /* Styling for the input field */
 #input_message {
-    width: calc(100% - 20px); /* Adjust width to account for padding */
-    margin-bottom: 10px; /* Space between input and button */
+    flex-grow: 1; /* Take up available space */
+    margin-right: 10px; /* Space between input and button */
     padding: 10px; /* Padding for the input */
     border: 1px solid #ccc; /* Border for the input */
     border-radius: 4px; /* Rounded corners for the input */
@@ -86,16 +85,15 @@ body {
 
 /* Styling for the send button */
 #sendButton {
-    width: calc(100% - 20px); /* Adjust button width to account for padding */
-    padding: 10px 0; /* Padding inside the button */
+    padding: 10px 20px; /* Padding inside the button */
     border: none; /* No border for the button */
     border-radius: 4px; /* Rounded corners for the button */
-    background-color: #61dafb; /* Background color for the button */
+    background-color: #5cb85c; /* Background color for the button */
     color: white; /* Text color for the button */
     cursor: pointer; /* Cursor indication for the button */
-    text-align: center; /* Center the text inside the button */
+    flex-shrink: 0; /* Prevent the button from shrinking */
+    white-space: nowrap; /* Prevent the text inside the button from wrapping */
 }
-
 
 /* Styling for the cells within the board */
 .cell {
@@ -128,7 +126,7 @@ body {
     margin: 0 10px; /* Increased space between buttons */
     padding: 10px 20px; /* Padding inside buttons */
     border: none; /* Remove border */
-    background-color: #61dafb; /* Green background for buttons */
+    background-color: #5cb85c; /* Green background for buttons */
     color: #fff; /* White text color */
     border-radius: 4px; /* Rounded corners for buttons */
     cursor: pointer; /* Pointer cursor on hover */
@@ -137,7 +135,7 @@ body {
 
 /* Hover effect for buttons */
 #play-again:hover, #main-menu:hover {
-    background-color: #18547c; /* Darker green on hover */
+    background-color: #449d44; /* Darker green on hover */
 }
 @media (max-width: 768px) {
     .container {
@@ -148,28 +146,4 @@ body {
         width: 100%; /* Set to full width to prevent horizontal overflow */
         margin-right: 0; /* Reset margin if changed for larger screens */
     }
-}
-/* Style for messages sent by the current user */
-.my-message {
-    background-color: #dcf8c6; /* Light green background for your messages */
-    text-align: right; /* Align your messages to the right */
-    padding: 5px 10px; /* Padding inside the message bubble */
-    margin: 4px 0; /* Margin between messages */
-    border-radius: 10px; /* Rounded corners for the message bubble */
-    border: 1px solid #d3d3d3; /* Slight border for the bubble */
-}
-
-/* Style for messages sent by other users */
-.other-message {
-    background-color: #e5e5ea; /* Light grey background for others' messages */
-    text-align: left; /* Align others' messages to the left */
-    padding: 5px 10px; /* Padding inside the message bubble */
-    margin: 4px 0; /* Margin between messages */
-    border-radius: 10px; /* Rounded corners for the message bubble */
-    border: 1px solid #d3d3d3; /* Slight border for the bubble */
-}
-.server-message {
-    color: #FF9800; /* Example: Orange text */
-    font-style: italic;
-    /* Add other styling as needed */
 }

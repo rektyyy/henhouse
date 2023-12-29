@@ -41,8 +41,7 @@ io.on('connection', (socket) => {
 
 
   socket.on('main menu', (roomId) => {
-    io.to(roomId).emit('chat message', { user: 'Server', message: 'A player has left the game.' });
-
+    io.to(roomId).emit('chat message', 'A player has left the game.');
   });
 
   socket.on('play again', (roomId) => {

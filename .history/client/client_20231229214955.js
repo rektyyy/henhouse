@@ -45,11 +45,8 @@ sendButton.addEventListener('click', () => {
 socket.on('chat message', (data) => {
     const item = document.createElement('li');
     item.textContent = data.message;
-
     if (data.user === socket.id) {
         item.classList.add('my-message');
-    } else if (data.user === 'Server') {
-        item.classList.add('server-message');
     } else {
         item.classList.add('other-message');
     }

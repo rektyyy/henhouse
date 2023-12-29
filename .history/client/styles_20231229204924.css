@@ -1,0 +1,120 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Horizontally center the .container */
+    align-items: center; /* Vertically center the .container */
+    background-color: #f0f0f0;
+}
+
+.container {
+    display: flex;
+    width: 90%; /* Reduce to 90% to not have chat at the very edge */
+    height: 100vh;
+    justify-content: center; /* Center the children (board and chat) */
+    align-items: center;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 150px); /* Increase the size of the cells */
+    grid-gap: 10px; /* Increase the gap between the cells */
+    margin: 0 20px 0 0; /* Adjust the margin to move board a bit to the center */
+}
+
+.cell {
+    width: 150px; /* Increase the width of the cells */
+    height: 150px; /* Increase the height of the cells */
+    border: 3px solid #000; /* Make the border thicker */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px; /* Increase the font size for X and O */
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.cell:hover {
+    background-color: #e0e0e0;
+}
+
+.chat-container {
+    flex: 0 0 300px; /* Set the chat container to not grow or shrink */
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Set to the full height of the viewport */
+    border-left: 1px solid #ccc;
+    margin-left: 20px; /* Add some space between the board and chat */
+}
+
+.chat-box {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+/* The rest of your chat, input, messages, and button styles can remain the same */
+
+
+.chat {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-form {
+    background: #333;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+}
+
+#input_message {
+    border: none;
+    padding: 0.5rem;
+    width: 70%;
+    border-radius: 0.25rem;
+    margin-right: 0.5rem;
+    font-size: 16px;
+    background-color: #eee;
+    color: #333;
+}
+
+#input_message:focus {
+    outline: none;
+}
+
+.chat-form > button {
+    background: #61dafb;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+#play-again, #main-menu {
+    background: #61dafb;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    position: absolute;
+    bottom: 1rem;
+}
+
+#play-again {
+    right: 1rem;
+}
+
+#main-menu {
+    left: 1rem;
+}
+

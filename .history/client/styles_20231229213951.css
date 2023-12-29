@@ -149,27 +149,3 @@ body {
         margin-right: 0; /* Reset margin if changed for larger screens */
     }
 }
-/* Style for messages sent by the current user */
-.my-message {
-    background-color: #dcf8c6; /* Light green background for your messages */
-    text-align: right; /* Align your messages to the right */
-    padding: 5px 10px; /* Padding inside the message bubble */
-    margin: 4px 0; /* Margin between messages */
-    border-radius: 10px; /* Rounded corners for the message bubble */
-    border: 1px solid #d3d3d3; /* Slight border for the bubble */
-}
-
-/* Style for messages sent by other users */
-.other-message {
-    background-color: #e5e5ea; /* Light grey background for others' messages */
-    text-align: left; /* Align others' messages to the left */
-    padding: 5px 10px; /* Padding inside the message bubble */
-    margin: 4px 0; /* Margin between messages */
-    border-radius: 10px; /* Rounded corners for the message bubble */
-    border: 1px solid #d3d3d3; /* Slight border for the bubble */
-}
-.server-message {
-    color: #FF9800; /* Example: Orange text */
-    font-style: italic;
-    /* Add other styling as needed */
-}
