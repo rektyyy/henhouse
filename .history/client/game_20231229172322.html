@@ -21,15 +21,15 @@
             <div class="cell"></div>
         </div>
         <div class="chat-container">
-            <div class="chat-box">
-                <ul id="messages" class="chat"></ul>
+            <div class="chat-box-container">
+                <ul class="chat" id="messages"></ul>
             </div>
-            <form id="form" action="" class="chat-form">
+            <div class="chat-form" id="form" action="">
                 <input id="input_message" autocomplete="off" />
-                <button type="button" id="sendButton">Send</button>
-
-            </form>
+                <button type="submit">Send</button>
+            </div>
         </div>
+
     </div>
     <button id="play-again">Play Again</button>
     <script src="/socket.io/socket.io.js"></script>

@@ -1,0 +1,28 @@
+/* Add or update the following styles in your CSS */
+
+.chat-box {
+    overflow-y: auto;
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    max-height: 300px; /* Adjust the height as needed */
+}
+
+/* Add the following styles for scrollbar */
+.chat-box::-webkit-scrollbar {
+    width: 12px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.chat-box::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

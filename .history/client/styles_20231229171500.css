@@ -1,20 +1,17 @@
 body {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     margin: 0;
 }
 
-.container {
-    display: flex;
-}
-
-#board {
+.board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-gap: 5px;
-    margin-right: 1rem;
+    margin-bottom: 1rem;
 }
 
 .cell {
@@ -32,32 +29,22 @@ body {
     background-color: #eee;
 }
 
-.chat-container {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    max-height: 100vh;
-    overflow: hidden;
-}
-
-.chat-box {
-    flex-grow: 1;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    box-sizing: border-box;
-    backdrop-filter: blur(10px);
-}
-
-.chat {
+#messages {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    max-height: 300px; /* Set a maximum height for the chat */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds max height */
 }
 
-.chat-form {
+#form {
     background: #333;
     padding: 0.5rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
     box-sizing: border-box;
     backdrop-filter: blur(10px);
 }
@@ -65,7 +52,7 @@ body {
 #input_message {
     border: none;
     padding: 0.5rem;
-    width: 70%;
+    flex-grow: 1;
     border-radius: 0.25rem;
     margin-right: 0.5rem;
     font-size: 16px;
@@ -75,7 +62,7 @@ body {
     outline: none;
 }
 
-.chat-form>button {
+#form>button {
     background: #fff;
     border: none;
     padding: 0.5rem;

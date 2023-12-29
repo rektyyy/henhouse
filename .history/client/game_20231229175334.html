@@ -3,7 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kolko i krzyzyk</title>
+    <title>Simple Chat</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
@@ -21,19 +21,36 @@
             <div class="cell"></div>
         </div>
         <div class="chat-container">
-            <div class="chat-box">
-                <ul id="messages" class="chat"></ul>
+            <div class="chat-box" id="chatBox">
+                <!-- Chat messages will be dynamically added here -->
             </div>
-            <form id="form" action="" class="chat-form">
+            <form id="form" class="chat-form">
                 <input id="input_message" autocomplete="off" />
-                <button type="button" id="sendButton">Send</button>
-
+                <button type="button" id="sendButton" onclick="sendMessage()">Send</button>
             </form>
         </div>
     </div>
     <button id="play-again">Play Again</button>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="client.js"></script>
+    <script>
+        function sendMessage() {
+            const inputMessage = document.getElementById('input_message');
+            const chatBox = document.getElementById('chatBox');
+
+            if (inputMessage.value.trim() !== '') {
+                const message = document.createElement('div');
+                message.classList.add('message', 'sent');
+                message.textContent = inputMessage.value;
+
+                chatBox.appendChild(message);
+                inputMessage.value = '';
+
+                // Scroll to the bottom
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+    </script>
 </body>
 
 </html>

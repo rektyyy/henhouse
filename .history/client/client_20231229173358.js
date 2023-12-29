@@ -5,7 +5,6 @@ const messages = document.getElementById('messages');
 const board = document.getElementById('board');
 const cells = document.querySelectorAll('.cell');
 const playAgainButton = document.getElementById('play-again');
-const sendButton = document.getElementById('sendButton');
 let hasRequestedPlayAgain = false;
 
 playAgainButton.addEventListener('click', () => {
@@ -27,20 +26,20 @@ let currentRoomId = getRoomId();
 socket.emit('join room', currentRoomId);
 
 
-sendButton.addEventListener('click', () => {
-    const message = input_message.value.trim();
+// Sends message to server
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const message = inputMessage.value.trim();
     if (message) {
-        socket.emit('chat message', { roomId: currentRoomId, message });
-        console.log({ roomId: currentRoomId, message });
-        input_message.value = '';
+        socket.emit('chat message', { message });
+        inputMessage.value = '';
     }
 });
 
 // Client recieves message
-socket.on('chat message', (msg) => {
-    console.log(`Client recieved a message ${msg}`)
+socket.on('chat message', (data) => {
     const item = document.createElement('li');
-    item.textContent = msg;
+    item.textContent = data.message;
     messages.appendChild(item);
 });
 

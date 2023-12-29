@@ -5,7 +5,6 @@ const messages = document.getElementById('messages');
 const board = document.getElementById('board');
 const cells = document.querySelectorAll('.cell');
 const playAgainButton = document.getElementById('play-again');
-const sendButton = document.getElementById('sendButton');
 let hasRequestedPlayAgain = false;
 
 playAgainButton.addEventListener('click', () => {
@@ -27,6 +26,16 @@ let currentRoomId = getRoomId();
 socket.emit('join room', currentRoomId);
 
 
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const message = input_message.value.trim();
+    if (message) {
+        socket.emit('chat message', { roomId: currentRoomId, message });
+        console.log({ roomId: currentRoomId, message });
+        input_message.value = '';
+    }
+});
+const sendButton = document.getElementById('sendButton');
 sendButton.addEventListener('click', () => {
     const message = input_message.value.trim();
     if (message) {
