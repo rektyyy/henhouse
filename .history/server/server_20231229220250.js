@@ -27,7 +27,6 @@ io.on('connection', (socket) => {
     else if (clientsInRoom.size == 1) {
       socket.join(roomId);
       io.to(socket.id).emit('o');
-      io.to(roomId).emit('chat message', { user: 'Server', message: 'Player 2 has joined. The game is starting...' });
       io.to(roomId).emit('start game');
     }
     else {

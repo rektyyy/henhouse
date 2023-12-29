@@ -21,14 +21,18 @@ io.on('connection', (socket) => {
     const clientsInRoom = io.sockets.adapter.rooms.get(roomId);
     if (clientsInRoom === undefined) {
       socket.join(roomId);
-      io.to(socket.id).emit('x');
       io.to(roomId).emit('chat message', { user: 'Server', message: 'Waiting for another player to join...' });
     }
     else if (clientsInRoom.size == 1) {
-      socket.join(roomId);
-      io.to(socket.id).emit('o');
-      io.to(roomId).emit('chat message', { user: 'Server', message: 'Player 2 has joined. The game is starting...' });
+      const players = Array.from(clientsInRoom);
+      const firstPlayer = players[Math.floor(Math.random() * players.length)];
+      const secondPlayer = firstPlayer === players[0] ? players[1] : players[0];
+
+      io.to(firstPlayer).emit('x');
+      io.to(secondPlayer).emit('o');
       io.to(roomId).emit('start game');
+      const startingPlayerMark = firstPlayer === socket.id ? 'X' : 'O';
+      io.to(roomId).emit('chat message', { user: 'Server', message: `Player ${startingPlayerMark} starts the game!` });
     }
     else {
       io.to(socket.id).emit('full room', roomId);
@@ -36,9 +40,10 @@ io.on('connection', (socket) => {
   })
 
   socket.on('chat message', (data) => {
+    // Assuming 'data' contains the message text
     const messageData = { user: socket.id, message: data.message };
     io.to(data.roomId).emit('chat message', messageData);
-});
+  });
 
 
   socket.on('main menu', (roomId) => {
