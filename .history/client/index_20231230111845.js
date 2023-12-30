@@ -1,9 +1,11 @@
-const socket = io();
+const socket = io(); // Make sure to serve 'socket.io' client script from your server
 
+// Access DOM elements
 const input_room = document.getElementById('room');
 const input_name = document.getElementById('name');
 const button_room = document.getElementById('button_room');
 
+// Add event listener for the 'Join room' button
 button_room.addEventListener('click', () => {
     console.log('Button clicked');
     const roomId = input_room.value

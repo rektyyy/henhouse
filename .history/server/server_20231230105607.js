@@ -38,14 +38,13 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('chat message', (data) => {
-    const messageData = { user: socket.id, message: data.message };
-    io.to(data.roomId).emit('chat message', messageData);
-});
+  socket.on('chat message', (roomId, message) => {
+    const messageData = { user: socket.playerName || 'Anonymous', message: message };
+    io.to(roomId).emit('chat message', messageData);
+  });
 
 
   socket.on('main menu', (roomId) => {
-    console.log('Player Name:', socket.playerName);
     io.to(roomId).emit('chat message', { user: 'Server', message: 'A player has left the game.' });
 
   });

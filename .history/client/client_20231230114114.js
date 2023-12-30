@@ -23,15 +23,16 @@ mainMenuButton.addEventListener('click',()=>{
     socket.emit('main menu', currentRoomId);
     window.location.href = '/index.html';
 } )
-
 function getRoomId() {
     const params = new URLSearchParams(window.location.search);
-    return params.get("room");
+    const roomId = params.get("room");
+    return decodeURIComponent(roomId);
 }
 
 function getPlayerName() {
     const params = new URLSearchParams(window.location.search);
-    return params.get("name");
+    const playerName = params.get("name");
+    return decodeURIComponent(playerName);
 }
 
 let currentRoomId = getRoomId();

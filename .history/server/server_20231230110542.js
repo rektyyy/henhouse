@@ -19,33 +19,32 @@ io.on('connection', (socket) => {
   });
 
   socket.on('join room', (roomId, playerName) => {
-    socket.playerName = playerName;
+    // socket.playerName = playerName;
 
     const clientsInRoom = io.sockets.adapter.rooms.get(roomId);
-    if (!clientsInRoom) {
+    if (!clientsInRoom || clientsInRoom.size === 0) {
       socket.join(roomId);
       io.to(socket.id).emit('x');
-
       io.to(roomId).emit('chat message', { user: 'Server', message: `${playerName} is waiting for another player to join...` });
     } else if (clientsInRoom.size === 1) {
+      // Second player joining the room
       socket.join(roomId);
       io.to(socket.id).emit('o');
-
       io.to(roomId).emit('chat message', { user: 'Server', message: `${playerName} has joined. The game is starting...` });
       io.to(roomId).emit('start game');
     } else {
+      // Room is already full
       io.to(socket.id).emit('full room', roomId);
     }
   });
 
-  socket.on('chat message', (data) => {
-    const messageData = { user: socket.id, message: data.message };
-    io.to(data.roomId).emit('chat message', messageData);
-});
+  socket.on('chat message', (roomId, message) => {
+    const messageData = { user: socket.playerName || 'Anonymous', message: message };
+    io.to(roomId).emit('chat message', messageData);
+  });
 
 
   socket.on('main menu', (roomId) => {
-    console.log('Player Name:', socket.playerName);
     io.to(roomId).emit('chat message', { user: 'Server', message: 'A player has left the game.' });
 
   });

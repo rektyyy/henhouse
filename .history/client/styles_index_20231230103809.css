@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-family: "Arial", sans-serif;
+  text-align: center;
+  color: #2196f3;
+  padding: 20px;
+  background-color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: #61dafb;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #4fa3d1;
+}
+
+.centered {
+  width: 100%;
+  max-width: 550px;
+  margin-bottom: 20px;
+}
+
+.group {
+  width: 100%;
+  margin-bottom: 10px;
+  position: relative;
+  padding: 0 10px; /* This padding should match the left and right padding of the input */
+}
+
+label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  position: absolute;
+  left: 10px; /* This should match the padding of the input */
+  top: 50%; /* Center the label vertically */
+  transform: translateY(-50%); /* Offset the label by half its height to truly center it */
+  transition: 0.25s ease;
+}
+
+input {
+  width: calc(100% - 20px); /* Adjust width based on padding */
+  padding: 20px 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background: #333;
+  font-size: 1rem;
+  position: relative; /* Ensures the z-index is correct for focus */
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  top: 0;
+  left: 10px;
+  font-size: 0.8rem;
+  color: #2196f3;
+}
+
+.bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: #2196f3;
+  width: 100%;
+  z-index: -1; /* Places the bar behind the input */
+}
+
+/*# sourceMappingURL=styles_index.css.map */

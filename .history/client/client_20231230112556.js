@@ -37,13 +37,13 @@ function getPlayerName() {
 let currentRoomId = getRoomId();
 let currentPlayerName = getPlayerName();
 
-
+// Check if both roomId and playerName are available
 if (currentRoomId && currentPlayerName) {
     socket.emit('join room', currentRoomId, currentPlayerName);
 } else {
-
+    // Handle the case where roomId or playerName is missing
     console.error("Room ID or Player Name is missing.");
-
+    // Redirect back to the main page or show an error message
 }
 
 sendButton.addEventListener('click', () => {
@@ -55,7 +55,9 @@ sendButton.addEventListener('click', () => {
     }
 });
 
+// Client receives a message
 socket.on('chat message', (data) => {
+    console.log('Received chat message:', data);
     const item = document.createElement('li');
     item.textContent = data.message;
 
@@ -69,6 +71,7 @@ socket.on('chat message', (data) => {
 
     messages.appendChild(item);
 });
+
 
 // Funkcja do obsługi kliknięcia
 function handleClick(index) {

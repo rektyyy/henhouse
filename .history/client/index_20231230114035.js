@@ -11,7 +11,11 @@ button_room.addEventListener('click', () => {
 
     if (roomId && playerName) {
         // socket.emit('join room', roomId, playerName);
-        window.location.href = `/game.html?room=${encodeURIComponent(roomId)}&name=${encodeURIComponent(playerName)}`;
+        const encodedRoomId = encodeURIComponent(roomId);
+        const encodedPlayerName = encodeURIComponent(playerName);
+
+        window.location.href = `/game.html?room=${encodedRoomId}&name=${encodedPlayerName}`;
+
 
     } else {
         alert("Please enter both a room and a name.");

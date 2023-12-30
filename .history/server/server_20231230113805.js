@@ -45,15 +45,17 @@ io.on('connection', (socket) => {
 
 
   socket.on('main menu', (roomId) => {
-    console.log('Player Name:', socket.playerName);
-    io.to(roomId).emit('chat message', { user: 'Server', message: 'A player has left the game.' });
+    socket.playerName = playerName;
 
+    io.to(roomId).emit('chat message', { user: 'Server', message: `${playerName} left the game` });
   });
 
   socket.on('play again', (roomId) => {
     playersRequestingPlayAgain.add(socket.id);
-    io.to(roomId).emit('chat message', 'Player wants to play again!'
-    );
+    socket.playerName = playerName;
+
+    io.to(roomId).emit('chat message', { user: 'Server', message: `${playerName} wants to play again` });
+
     if (playersRequestingPlayAgain.size === 2) {
       playersRequestingPlayAgain.clear();
       io.to(roomId).emit('chat message', 'Game starts again!')

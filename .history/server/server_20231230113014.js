@@ -38,10 +38,10 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('chat message', (data) => {
-    const messageData = { user: socket.id, message: data.message };
-    io.to(data.roomId).emit('chat message', messageData);
-});
+  socket.on('chat message', (roomId, message) => {
+    const messageData = { user: socket.id || 'Anonymous', message: message };
+    io.to(roomId).emit('chat message', messageData);
+  });
 
 
   socket.on('main menu', (roomId) => {

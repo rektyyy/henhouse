@@ -37,13 +37,13 @@ function getPlayerName() {
 let currentRoomId = getRoomId();
 let currentPlayerName = getPlayerName();
 
-
+// Check if both roomId and playerName are available
 if (currentRoomId && currentPlayerName) {
     socket.emit('join room', currentRoomId, currentPlayerName);
 } else {
-
+    // Handle the case where roomId or playerName is missing
     console.error("Room ID or Player Name is missing.");
-
+    // Redirect back to the main page or show an error message
 }
 
 sendButton.addEventListener('click', () => {

@@ -9,7 +9,24 @@ const io = new Server(server);
 const path = "/../client"
 
 app.use(express.static(__dirname + path));
+const input_room = document.getElementById('room');
+const input_name = document.getElementById('name');
+const button_room = document.getElementById('button_room');
 
+// Joins room
+button_room.addEventListener('click', () => {
+  const roomId = input_room.value.trim();
+  const playerName = input_name.value.trim();
+
+  if (roomId && playerName) {
+      // Emit the 'join room' event with both roomId and playerName
+      socket.emit('join room', roomId, playerName);
+      // Assuming you have already established the socket connection with `const socket = io();`
+  } else {
+      // Alert the user to enter both a room and a name
+      alert("Please enter both a room and a name.");
+  }
+});
 
 const playersRequestingPlayAgain = new Set();
 io.on('connection', (socket) => {
@@ -38,14 +55,13 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('chat message', (data) => {
-    const messageData = { user: socket.id, message: data.message };
-    io.to(data.roomId).emit('chat message', messageData);
-});
+  socket.on('chat message', (roomId, message) => {
+    const messageData = { user: socket.playerName || 'Anonymous', message: message };
+    io.to(roomId).emit('chat message', messageData);
+  });
 
 
   socket.on('main menu', (roomId) => {
-    console.log('Player Name:', socket.playerName);
     io.to(roomId).emit('chat message', { user: 'Server', message: 'A player has left the game.' });
 
   });

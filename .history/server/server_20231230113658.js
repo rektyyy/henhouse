@@ -52,7 +52,9 @@ io.on('connection', (socket) => {
 
   socket.on('play again', (roomId) => {
     playersRequestingPlayAgain.add(socket.id);
-    io.to(roomId).emit('chat message', 'Player wants to play again!'
+    socket.playerName = playerName;
+
+    io.to(roomId).emit('chat message', { user: 'Server', message: `${playerName} left the game` });
     );
     if (playersRequestingPlayAgain.size === 2) {
       playersRequestingPlayAgain.clear();

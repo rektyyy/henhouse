@@ -10,7 +10,6 @@ const path = "/../client"
 
 app.use(express.static(__dirname + path));
 
-
 const playersRequestingPlayAgain = new Set();
 io.on('connection', (socket) => {
   // TODO: Delete after work
@@ -19,18 +18,18 @@ io.on('connection', (socket) => {
   });
 
   socket.on('join room', (roomId, playerName) => {
-    socket.playerName = playerName;
+    socket.playerName = playerName; // Store the player's name on their socket session
 
     const clientsInRoom = io.sockets.adapter.rooms.get(roomId);
     if (!clientsInRoom) {
       socket.join(roomId);
       io.to(socket.id).emit('x');
-
+      // Use the playerName in the message
       io.to(roomId).emit('chat message', { user: 'Server', message: `${playerName} is waiting for another player to join...` });
     } else if (clientsInRoom.size === 1) {
       socket.join(roomId);
       io.to(socket.id).emit('o');
-
+      // Notify the room that a second player has joined
       io.to(roomId).emit('chat message', { user: 'Server', message: `${playerName} has joined. The game is starting...` });
       io.to(roomId).emit('start game');
     } else {
@@ -45,7 +44,6 @@ io.on('connection', (socket) => {
 
 
   socket.on('main menu', (roomId) => {
-    console.log('Player Name:', socket.playerName);
     io.to(roomId).emit('chat message', { user: 'Server', message: 'A player has left the game.' });
 
   });

@@ -24,27 +24,32 @@ mainMenuButton.addEventListener('click',()=>{
     window.location.href = '/index.html';
 } )
 
+
+// Access DOM elements
+const input_room = document.getElementById('room');
+const input_name = document.getElementById('name');
+const button_room = document.getElementById('button_room');
+
+// Add event listener for the 'Join room' button
+button_room.addEventListener('click', () => {
+    const roomId = input_room.value.trim();
+    const playerName = input_name.value.trim();
+
+    if (roomId && playerName) {
+        // Emit the 'join room' event with roomId and playerName
+        socket.emit('join room', roomId, playerName);
+        // Navigate to the game page or handle the room joining logic here
+    } else {
+        alert("Please enter both a room and a name.");
+    }
+});
 function getRoomId() {
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(document.location.search);
     return params.get("room");
 }
-
-function getPlayerName() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("name");
-}
-
 let currentRoomId = getRoomId();
-let currentPlayerName = getPlayerName();
+socket.emit('join room', currentRoomId);
 
-
-if (currentRoomId && currentPlayerName) {
-    socket.emit('join room', currentRoomId, currentPlayerName);
-} else {
-
-    console.error("Room ID or Player Name is missing.");
-
-}
 
 sendButton.addEventListener('click', () => {
     const message = input_message.value.trim();
@@ -55,6 +60,7 @@ sendButton.addEventListener('click', () => {
     }
 });
 
+// Client receives a message
 socket.on('chat message', (data) => {
     const item = document.createElement('li');
     item.textContent = data.message;
@@ -69,6 +75,7 @@ socket.on('chat message', (data) => {
 
     messages.appendChild(item);
 });
+
 
 // Funkcja do obsługi kliknięcia
 function handleClick(index) {
@@ -113,17 +120,14 @@ socket.on('updateGame', (data) => {
 });
 
 socket.on('x', () => {
-    console.log("Received 'x' - You are player X");
     playerMark = 'X';
 });
 
 socket.on('o', () => {
-    console.log("Received 'o' - You are player O");
     playerMark = 'O';
 });
 
 socket.on('start game', () => {
-    console.log("Game is starting");
     boardState = Array(9).fill('');
     currentPlayer = 'X';
     updateBoard();
