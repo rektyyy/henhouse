@@ -151,7 +151,7 @@ body {
 }
 /* Style for messages sent by the current user */
 .my-message {
-    max-width: 100%; /* Set a maximum width for the message container */
+    max-width: 80%; /* Set a maximum width for the message container */
     overflow-wrap: break-word;
     background-color: #dcf8c6; /* Light green background for your messages */
     text-align: right; /* Align your messages to the right */
@@ -163,7 +163,7 @@ body {
 
 /* Style for messages sent by other users */
 .other-message {
-    max-width: 100% ;/* Set a maximum width for the message container */
+    max-width: 80%; /* Set a maximum width for the message container */
     overflow-wrap: break-word;
     background-color: #e5e5ea; /* Light grey background for others' messages */
     text-align: left; /* Align others' messages to the left */

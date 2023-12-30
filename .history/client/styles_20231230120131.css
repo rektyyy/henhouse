@@ -163,7 +163,7 @@ body {
 
 /* Style for messages sent by other users */
 .other-message {
-    max-width: 100% ;/* Set a maximum width for the message container */
+    max-width: 100% /* Set a maximum width for the message container */
     overflow-wrap: break-word;
     background-color: #e5e5ea; /* Light grey background for others' messages */
     text-align: left; /* Align others' messages to the left */
