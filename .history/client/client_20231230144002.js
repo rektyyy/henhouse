@@ -23,7 +23,18 @@ mainMenuButton.addEventListener('click', () => {
     socket.emit('main menu', currentRoomId);
     window.location.href = '/index.html';
 })
+function getAllRoomIds() {
+    const rooms = io.sockets.adapter.rooms;
+    const roomIds = [];
 
+    rooms.forEach((room, id) => {
+        if (!room.has(id)) { // Filter out default rooms
+            roomIds.push(id);
+        }
+    });
+
+    return roomIds;
+}
 
 function getRoomId() {
     const params = new URLSearchParams(window.location.search);
@@ -70,7 +81,16 @@ socket.on('chat message', (data) => {
 
     messages.appendChild(item);
 });
+socket.on('active rooms', function (roomIds) {
+    const roomsList = document.getElementById('roomsList');
+    roomsList.innerHTML = ''; // Clear existing list
 
+    roomIds.forEach(function (roomId) {
+        const listItem = document.createElement('li');
+        listItem.textContent = roomId;
+        roomsList.appendChild(listItem);
+    });
+});
 // Funkcja do obsługi kliknięcia
 function handleClick(index) {
     return function () {

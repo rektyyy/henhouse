@@ -18,11 +18,3 @@ button_room.addEventListener('click', () => {
         alert("Please enter both a room and a name.");
     }
 });
-
-
-
-const button_get_rooms = document.getElementById('button_get_rooms');
-
-button_get_rooms.addEventListener('click', () => {
-    window.location.href = '/rooms.html';
-});

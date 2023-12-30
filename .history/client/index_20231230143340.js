@@ -3,7 +3,7 @@ const socket = io();
 const input_room = document.getElementById('room');
 const input_name = document.getElementById('name');
 const button_room = document.getElementById('button_room');
-
+const button_get_rooms = document.getElementById('button_get_rooms')
 button_room.addEventListener('click', () => {
     console.log('Button clicked');
     const roomId = input_room.value
@@ -19,10 +19,8 @@ button_room.addEventListener('click', () => {
     }
 });
 
-
-
-const button_get_rooms = document.getElementById('button_get_rooms');
-
-button_get_rooms.addEventListener('click', () => {
+button_get_rooms.addEventListener('click',()=>{
     window.location.href = '/rooms.html';
-});
+})
+
+

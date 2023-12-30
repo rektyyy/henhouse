@@ -11,18 +11,7 @@ const path = "/../client"
 
 app.use(express.static(__dirname + path));
 
-function getAllRoomIds() {
-  const rooms = io.sockets.adapter.rooms;
-  const roomIds = [];
 
-  rooms.forEach((room, id) => {
-      if (!room.has(id)) { // Filter out default rooms
-          roomIds.push(id);
-      }
-  });
-
-  return roomIds;
-}
 const playersRequestingPlayAgain = new Set();
 io.on('connection', (socket) => {
   // TODO: Delete after work
@@ -76,7 +65,6 @@ io.on('connection', (socket) => {
   socket.on('request rooms', () => {
     const roomIds = getAllRoomIds();
     io.emit('active rooms', roomIds);
-
   });
   socket.on('move', (data) => {
     roomId = data.roomId;

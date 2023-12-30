@@ -76,7 +76,6 @@ io.on('connection', (socket) => {
   socket.on('request rooms', () => {
     const roomIds = getAllRoomIds();
     io.emit('active rooms', roomIds);
-
   });
   socket.on('move', (data) => {
     roomId = data.roomId;

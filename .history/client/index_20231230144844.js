@@ -21,8 +21,3 @@ button_room.addEventListener('click', () => {
 
 
 
-const button_get_rooms = document.getElementById('button_get_rooms');
-
-button_get_rooms.addEventListener('click', () => {
-    window.location.href = '/rooms.html';
-});
