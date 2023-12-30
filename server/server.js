@@ -16,9 +16,9 @@ function getAllRoomIds() {
   const roomIds = [];
 
   rooms.forEach((room, id) => {
-      if (!room.has(id)) { // Filter out default rooms
-          roomIds.push(id);
-      }
+    if (!room.has(id)) { // Filter out default rooms
+      roomIds.push(id);
+    }
   });
 
   return roomIds;
@@ -53,7 +53,7 @@ io.on('connection', (socket) => {
   socket.on('chat message', (data) => {
     const messageData = { user: socket.id, message: data.message };
     io.to(data.roomId).emit('chat message', messageData);
-});
+  });
 
 
   socket.on('main menu', (roomId) => {

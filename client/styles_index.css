@@ -50,7 +50,8 @@ button:hover {
   width: 100%;
   margin-bottom: 10px;
   position: relative;
-  padding-top: 20px; /* This padding gives space for the label to move above the input */
+  padding-top: 20px;
+  /* This padding gives space for the label to move above the input */
 }
 
 
@@ -65,9 +66,10 @@ input {
   margin-bottom: 5px;
 }
 
-input:focus + label,
-input:valid + label {
-  bottom: 100%; /* Move the label to the top of the input */
+input:focus+label,
+input:valid+label {
+  bottom: 100%;
+  /* Move the label to the top of the input */
   color: #2196f3;
 }
 
