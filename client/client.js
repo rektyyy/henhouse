@@ -7,7 +7,6 @@ const cells = document.querySelectorAll('.cell');
 const playAgainButton = document.getElementById('play-again');
 const mainMenuButton = document.getElementById('main-menu');
 const sendButton = document.getElementById('sendButton');
-let hasRequestedPlayAgain = false;
 playAgainButton.style.display = 'none';
 var playerMark = '';
 var boardState = Array(9).fill('');
@@ -15,8 +14,6 @@ var boardState = Array(9).fill('');
 playAgainButton.addEventListener('click', () => {
     playAgainButton.style.display = 'none';
     socket.emit('play again', currentRoomId);
-    hasRequestedPlayAgain = true;
-
 });
 
 mainMenuButton.addEventListener('click', () => {
@@ -59,7 +56,7 @@ sendButton.addEventListener('click', () => {
 socket.on('chat message', (data) => {
     const item = document.createElement('li');
     item.textContent = data.message;
-
+    console.log(`New message by user ${data.user}: ${data.message}`);
     if (data.user === socket.id) {
         item.classList.add('my-message');
     } else if (data.user === 'Server') {
@@ -126,16 +123,8 @@ socket.on('o', () => {
 socket.on('start game', () => {
     console.log("Game is starting");
     boardState = Array(9).fill('');
-    currentPlayer = 'X';
     updateBoard();
     if (playerMark == 'X') enableClick();
-
-    if (hasRequestedPlayAgain) {
-
-        playAgainButton.disabled = true;
-
-        hasRequestedPlayAgain = false;
-    }
 
 });
 
