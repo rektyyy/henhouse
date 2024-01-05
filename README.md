@@ -1,27 +1,4 @@
-# Henhouse
-
-
-### TODO:
-
-4. After all the work delete debugging statements.
-    - console.log
-    - event loggers marked by TODO comment
-5. Add a better readme.
-
-### Addidional
-
-1. Add spectators in rooms
-2. Randomly choosing players
-
-Użytkownik anonimowy (bez logowania)
-– określenie własnego identyfikatora (nicka) - DONE
-– przeglądanie listy ”pokoi” w których trwają rozgrywki!
-– założenie nowego pokoju -DONE
-– dołączenie do pokoju w którym ktoś oczekuje na grę - DONE
-– możliwość rozegrania całej partii wybranej gry -DONE
-
-
-# Tic-Tac-Toe Game
+# Henhouse - Tic-Tac-Toe Game
 
 Welcome to the classic game of Tic-Tac-Toe! This web-based game allows you to play against a friend on the same device. Have fun and enjoy some friendly competition!
 
