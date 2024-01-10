@@ -57,22 +57,20 @@ io.on('connection', (socket) => {
 
 
   socket.on('main menu', (roomId) => {
+    console.log('Player Name:', socket.playerName);
     io.to(roomId).emit('chat message', { user: 'Server', message: 'A player has left the game.' });
+
   });
 
   socket.on('play again', (roomId) => {
+    playersRequestingPlayAgain.add(socket.id);
+    io.to(roomId).emit('chat message', { user: 'Server', message: 'Player want to play again!' });
+    if (playersRequestingPlayAgain.size === 2) {
+      playersRequestingPlayAgain.clear();
+      io.to(roomId).emit('chat message', { user: 'Server', message: 'Game starts again' });
 
-    if (playersRequestingPlayAgain.has(roomId)) {
-      playersRequestingPlayAgain.delete(roomId);
-      io.to(roomId).emit('chat message', { user: 'Server', message: 'Game starts again.' })
       io.to(roomId).emit('start game');
     }
-    else {
-      io.to(roomId).emit('chat message', { user: 'Server', message: 'A player wants to play again.' });
-      playersRequestingPlayAgain.add(roomId);
-    }
-
-
   });
   socket.on('request rooms', () => {
     const roomIds = getAllRoomIds();
